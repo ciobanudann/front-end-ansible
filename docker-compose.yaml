@@ -1,0 +1,20 @@
+version: '3'
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - build:/app/build
+  nginx:
+    image: nginx:latest
+    volumes:
+      - build:/usr/share/nginx/html
+    ports:
+      - 80:80
+    depends_on:
+      - app
+volumes:
+  build:
